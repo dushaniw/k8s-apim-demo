@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  name: wso2am-pattern-1-am-websub-ingress
+  namespace: apim-demo
+spec:
+  rules:
+  - host: websub.am.wso2.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: wso2am-pattern-1-am-service
+            port:
+              number: 8021
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - websub.am.wso2.com

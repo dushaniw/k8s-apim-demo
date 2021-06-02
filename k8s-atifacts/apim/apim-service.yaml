@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+  name: wso2am-pattern-1-am-service
+  namespace: apim-demo
+spec:
+  clusterIP: 10.8.10.52
+  ports:
+  - name: pass-through-http
+    port: 8280
+    protocol: TCP
+    targetPort: 8280
+  - name: pass-through-https
+    port: 8243
+    protocol: TCP
+    targetPort: 8243
+  - name: servlet-http
+    port: 9763
+    protocol: TCP
+    targetPort: 9763
+  - name: servlet-https
+    port: 9443
+    protocol: TCP
+    targetPort: 9443
+  - name: websub-http
+    port: 9021
+    protocol: TCP
+    targetPort: 9021
+  - name: websub-https
+    port: 8021
+    protocol: TCP
+    targetPort: 8021
+  selector:
+    deployment: wso2am-pattern-1-am
+  sessionAffinity: None
+  type: ClusterIP
