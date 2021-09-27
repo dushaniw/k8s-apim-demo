@@ -3,9 +3,17 @@ kind: Ingress
 metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
+    meta.helm.sh/release-name: apim4
+    meta.helm.sh/release-namespace: apim-demo
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  creationTimestamp: "2021-05-31T21:54:22Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/managed-by: Helm
   name: wso2am-pattern-1-am-gateway-ingress
   namespace: apim-demo
+  resourceVersion: "65798324"
+  uid: eea0e4f7-21c0-4a0e-a672-99b47d2cb83a
 spec:
   rules:
   - host: gateway.am.wso2.com
@@ -21,3 +29,7 @@ spec:
   tls:
   - hosts:
     - gateway.am.wso2.com
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.123.88.118

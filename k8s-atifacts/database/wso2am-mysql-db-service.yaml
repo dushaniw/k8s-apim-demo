@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+    meta.helm.sh/release-name: apim4
+    meta.helm.sh/release-namespace: apim-demo
+  creationTimestamp: "2021-05-31T21:54:21Z"
+  labels:
+    app: wso2am-mysql-db-service
+    app.kubernetes.io/managed-by: Helm
+    chart: mysql-1.6.9
+    heritage: Helm
+    release: apim4
+  name: wso2am-mysql-db-service
+  namespace: apim-demo
+  resourceVersion: "318303"
+  uid: 49127679-e5be-4388-8c5b-36742fd6e006
+spec:
+  clusterIP: 10.8.15.77
+  clusterIPs:
+  - 10.8.15.77
+  ports:
+  - name: mysql
+    port: 3306
+    protocol: TCP
+    targetPort: mysql
+  selector:
+    app: wso2am-mysql-db-service
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,0 +1,41 @@
+{
+	"custom": {
+		"appBar": {
+			"logo": "/site/public/tenant_themes/<tenant-domain>/apim/images/railco.svg",
+			"logoHeight": 31,
+			"logoWidth": 144,
+			"background": "#00b58b",
+          	"activeBackground": "#013303"
+		},
+		"thumbnailTemplates": {
+            "active": true,
+            "variant": "plain"
+        },
+		"leftMenu": {
+            "background": "#e3e3e3",
+            "leftMenuActive": "#fc9d66",
+            "leftMenuActiveSubmenu": "#ffc5a3",
+            "activeBackground": "#191e46",
+            "rootIconVisible": true,
+            "rootIconSize": 42,
+            "rootIconTextVisible": false,
+            "rootBackground": "#000"
+        },
+		"page": {
+            "style": "fixed",
+            "emptyAreadBackground": "#b2d8d6d1",
+            "border": "2px solid #3affbf"
+        },
+		"landingPage": {
+            "active": true
+        },
+		"footer": {
+            "active": true,
+            "footerHTML": "Copyright &copy; 2021 All Rights Reserved by <b style=\"color:blue\"><a href=\"#\">RailCo.com</a></b>",
+            "background": "#224831",
+            "color": "#000",
+            "height": 50
+
+        }
+	}
+}

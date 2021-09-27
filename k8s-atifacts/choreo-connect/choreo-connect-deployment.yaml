@@ -1,0 +1,258 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"choreo-connect-deployment","namespace":"apim-demo"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"choreo-connect-deployment"}},"template":{"metadata":{"labels":{"app":"choreo-connect-deployment"}},"spec":{"containers":[{"env":[{"name":"ENFORCER_PRIVATE_KEY_PATH","value":"/home/wso2/security/keystore/mg.key"},{"name":"ENFORCER_PUBLIC_CERT_PATH","value":"/home/wso2/security/keystore/mg.pem"},{"name":"TRUSTED_CA_CERTS_PATH","value":"/home/wso2/security/truststore"},{"name":"ADAPTER_HOST_NAME","value":"adapter"},{"name":"ADAPTER_HOST","value":"adapter"},{"name":"ADAPTER_XDS_PORT","value":"18000"},{"name":"ENFORCER_LABEL","value":"Micro-Gateway"},{"name":"ENFORCER_REGION","value":"UNKNOWN"},{"name":"XDS_MAX_MSG_SIZE","value":"4194304"},{"name":"XDS_MAX_RETRIES","value":"3"},{"name":"JAVA_OPTS","value":"-Dhttpclient.hostnameVerifier=AllowAll"},{"name":"apim_admin_pwd","value":"admin"},{"name":"enforcer_admin_pwd","value":"admin"},{"name":"tm_admin_pwd","value":"admin"},{"name":"analytics_authURL","value":"https://analytics-event-auth.choreo.dev/auth/v1"},{"name":"analytics_authToken","value":"d6e2905d-a6d9-4bd4-8926-a29ae394298d"}],"image":"wso2/choreo-connect-enforcer:0.9.0","imagePullPolicy":"IfNotPresent","livenessProbe":{"exec":{"command":["sh","check_health.sh"]},"initialDelaySeconds":10,"periodSeconds":30},"name":"choreo-connect-enforcer","ports":[{"containerPort":8081},{"containerPort":8082}],"readinessProbe":{"exec":{"command":["sh","check_health.sh"]},"initialDelaySeconds":8,"periodSeconds":5},"resources":{"limits":{"cpu":"500m","memory":"500Mi"},"requests":{"cpu":"250m","memory":"250Mi"}},"startupProbe":{"exec":{"command":["sh","check_health.sh"]},"failureThreshold":30,"periodSeconds":5},"volumeMounts":[{"mountPath":"/home/wso2/security/truststore","name":"enforcer-truststore-vol"},{"mountPath":"/home/wso2/security/keystore","name":"enforcer-keystore-vol"},{"mountPath":"/home/wso2/conf/log4j2.properties","name":"log4j2-vol","subPath":"log4j2.properties"},{"mountPath":"/home/wso2/lib/dropins","name":"dropins-vol"}]},{"env":[{"name":"ROUTER_ADMIN_HOST","value":"0.0.0.0"},{"name":"ROUTER_ADMIN_PORT","value":"9000"},{"name":"ROUTER_CLUSTER","value":"default_cluster"},{"name":"ROUTER_LABEL","value":"Micro-Gateway"},{"name":"ROUTER_PRIVATE_KEY_PATH","value":"/home/wso2/security/keystore/mg.key"},{"name":"ROUTER_PUBLIC_CERT_PATH","value":"/home/wso2/security/keystore/mg.pem"},{"name":"ADAPTER_HOST","value":"adapter"},{"name":"ADAPTER_PORT","value":"18000"},{"name":"ADAPTER_CA_CERT_PATH","value":"/home/wso2/security/truststore/mg.pem"},{"name":"ENFORCER_HOST","value":"127.0.0.1"},{"name":"ENFORCER_PORT","value":"8081"},{"name":"ENFORCER_ANALYTICS_HOST","value":"127.0.0.1"},{"name":"ENFORCER_ANALYTICS_RECEIVER_PORT","value":"18090"},{"name":"ENFORCER_CA_CERT_PATH","value":"/home/wso2/security/truststore/mg.pem"}],"image":"wso2/choreo-connect-router:0.9.0","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"httpHeaders":[{"name":"Host","value":"mgw.wso2.com"}],"path":"/health","port":9095,"scheme":"HTTPS"},"initialDelaySeconds":20,"periodSeconds":10},"name":"choreo-connect-router","ports":[{"containerPort":9000},{"containerPort":9095}],"readinessProbe":{"httpGet":{"httpHeaders":[{"name":"Host","value":"mgw.wso2.com"}],"path":"/health","port":9095,"scheme":"HTTPS"},"initialDelaySeconds":20,"periodSeconds":5},"resources":{"limits":{"cpu":"500m","memory":"500Mi"},"requests":{"cpu":"250m","memory":"250Mi"}},"startupProbe":{"failureThreshold":30,"httpGet":{"httpHeaders":[{"name":"Host","value":"mgw.wso2.com"}],"path":"/health","port":9095,"scheme":"HTTPS"},"periodSeconds":5},"volumeMounts":[{"mountPath":"/home/wso2/security/keystore","name":"router-keystore-vol"},{"mountPath":"/home/wso2/security/truststore","name":"router-truststore-vol"}]}],"initContainers":[{"command":["sh","-c","echo -e \"Checking for the availability of Adapter\"; while ! nc -z adapter 18000; do sleep 1; printf \"-\"; done; echo -e \"  \u003e\u003e Adapter has started\";"],"image":"busybox:1.31","name":"init-adapter-service"}],"restartPolicy":"Always","volumes":[{"name":"router-keystore-vol","secret":{"secretName":"router-keystore"}},{"name":"router-truststore-vol","secret":{"secretName":"router-truststore"}},{"name":"enforcer-truststore-vol","secret":{"secretName":"enforcer-truststore"}},{"name":"enforcer-keystore-vol","secret":{"secretName":"enforcer-keystore"}},{"configMap":{"name":"config-toml"},"name":"config-toml-vol"},{"configMap":{"name":"log4j2"},"name":"log4j2-vol"},{"configMap":{"name":"logconfig-toml"},"name":"logconfig-toml-vol"},{"emptyDir":{},"name":"dropins-vol"}]}}}}
+  creationTimestamp: "2021-06-02T11:45:53Z"
+  generation: 3
+  name: choreo-connect-deployment
+  namespace: apim-demo
+  resourceVersion: "65750027"
+  uid: e7e34579-addd-4149-bb38-0f862a45d8f2
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: choreo-connect-deployment
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: choreo-connect-deployment
+    spec:
+      containers:
+      - env:
+        - name: ENFORCER_PRIVATE_KEY_PATH
+          value: /home/wso2/security/keystore/mg.key
+        - name: ENFORCER_PUBLIC_CERT_PATH
+          value: /home/wso2/security/keystore/mg.pem
+        - name: TRUSTED_CA_CERTS_PATH
+          value: /home/wso2/security/truststore
+        - name: ADAPTER_HOST_NAME
+          value: adapter
+        - name: ADAPTER_HOST
+          value: adapter
+        - name: ADAPTER_XDS_PORT
+          value: "18000"
+        - name: ENFORCER_LABEL
+          value: Micro-Gateway
+        - name: ENFORCER_REGION
+          value: UNKNOWN
+        - name: XDS_MAX_MSG_SIZE
+          value: "4194304"
+        - name: XDS_MAX_RETRIES
+          value: "3"
+        - name: JAVA_OPTS
+          value: -Dhttpclient.hostnameVerifier=AllowAll
+        - name: apim_admin_pwd
+          value: admin
+        - name: enforcer_admin_pwd
+          value: admin
+        - name: tm_admin_pwd
+          value: admin
+        - name: analytics_authURL
+          value: https://analytics-event-auth.choreo.dev/auth/v1
+        - name: analytics_authToken
+          value: d6e2905d-a6d9-4bd4-8926-a29ae394298d
+        image: wso2/choreo-connect-enforcer:0.9.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - check_health.sh
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: choreo-connect-enforcer
+        ports:
+        - containerPort: 8081
+          protocol: TCP
+        - containerPort: 8082
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - check_health.sh
+          failureThreshold: 3
+          initialDelaySeconds: 8
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 250m
+            memory: 250Mi
+        startupProbe:
+          exec:
+            command:
+            - sh
+            - check_health.sh
+          failureThreshold: 30
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /home/wso2/security/truststore
+          name: enforcer-truststore-vol
+        - mountPath: /home/wso2/security/keystore
+          name: enforcer-keystore-vol
+        - mountPath: /home/wso2/conf/log4j2.properties
+          name: log4j2-vol
+          subPath: log4j2.properties
+        - mountPath: /home/wso2/lib/dropins
+          name: dropins-vol
+      - env:
+        - name: ROUTER_ADMIN_HOST
+          value: 0.0.0.0
+        - name: ROUTER_ADMIN_PORT
+          value: "9000"
+        - name: ROUTER_CLUSTER
+          value: default_cluster
+        - name: ROUTER_LABEL
+          value: Micro-Gateway
+        - name: ROUTER_PRIVATE_KEY_PATH
+          value: /home/wso2/security/keystore/mg.key
+        - name: ROUTER_PUBLIC_CERT_PATH
+          value: /home/wso2/security/keystore/mg.pem
+        - name: ADAPTER_HOST
+          value: adapter
+        - name: ADAPTER_PORT
+          value: "18000"
+        - name: ADAPTER_CA_CERT_PATH
+          value: /home/wso2/security/truststore/mg.pem
+        - name: ENFORCER_HOST
+          value: 127.0.0.1
+        - name: ENFORCER_PORT
+          value: "8081"
+        - name: ENFORCER_ANALYTICS_HOST
+          value: 127.0.0.1
+        - name: ENFORCER_ANALYTICS_RECEIVER_PORT
+          value: "18090"
+        - name: ENFORCER_CA_CERT_PATH
+          value: /home/wso2/security/truststore/mg.pem
+        image: wso2/choreo-connect-router:0.9.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            httpHeaders:
+            - name: Host
+              value: mgw.wso2.com
+            path: /health
+            port: 9095
+            scheme: HTTPS
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: choreo-connect-router
+        ports:
+        - containerPort: 9000
+          protocol: TCP
+        - containerPort: 9095
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            httpHeaders:
+            - name: Host
+              value: mgw.wso2.com
+            path: /health
+            port: 9095
+            scheme: HTTPS
+          initialDelaySeconds: 20
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 250m
+            memory: 250Mi
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            httpHeaders:
+            - name: Host
+              value: mgw.wso2.com
+            path: /health
+            port: 9095
+            scheme: HTTPS
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /home/wso2/security/keystore
+          name: router-keystore-vol
+        - mountPath: /home/wso2/security/truststore
+          name: router-truststore-vol
+      dnsPolicy: ClusterFirst
+      initContainers:
+      - command:
+        - sh
+        - -c
+        - echo -e "Checking for the availability of Adapter"; while ! nc -z adapter
+          18000; do sleep 1; printf "-"; done; echo -e "  >> Adapter has started";
+        image: busybox:1.31
+        imagePullPolicy: IfNotPresent
+        name: init-adapter-service
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: router-keystore-vol
+        secret:
+          defaultMode: 420
+          secretName: router-keystore
+      - name: router-truststore-vol
+        secret:
+          defaultMode: 420
+          secretName: router-truststore
+      - name: enforcer-truststore-vol
+        secret:
+          defaultMode: 420
+          secretName: enforcer-truststore
+      - name: enforcer-keystore-vol
+        secret:
+          defaultMode: 420
+          secretName: enforcer-keystore
+      - configMap:
+          defaultMode: 420
+          name: config-toml
+        name: config-toml-vol
+      - configMap:
+          defaultMode: 420
+          name: log4j2
+        name: log4j2-vol
+      - configMap:
+          defaultMode: 420
+          name: logconfig-toml
+        name: logconfig-toml-vol
+      - emptyDir: {}
+        name: dropins-vol

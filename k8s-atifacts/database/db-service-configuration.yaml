@@ -1,0 +1,17 @@
+apiVersion: v1
+data:
+  mysql.cnf: |-
+    [mysqld]
+    max_connections = 10000
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: apim4
+    meta.helm.sh/release-namespace: apim-demo
+  creationTimestamp: "2021-05-31T21:54:18Z"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: wso2am-mysql-db-service-configuration
+  namespace: apim-demo
+  resourceVersion: "318264"
+  uid: 3ba51126-1e9c-4472-9b6d-ef8c6601de45

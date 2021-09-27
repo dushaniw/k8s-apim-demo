@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/backends: '{"k8s-be-31573--e7c82c31ceb2d57e":"HEALTHY","k8s1-e7c82c31-apim-demo-wso2bps-service-9445-964f780a":"UNHEALTHY"}'
+    ingress.kubernetes.io/forwarding-rule: k8s2-fr-kjh8o2x5-apim-demo-wso2bps-ingress-1bxt8bgc
+    ingress.kubernetes.io/target-proxy: k8s2-tp-kjh8o2x5-apim-demo-wso2bps-ingress-1bxt8bgc
+    ingress.kubernetes.io/url-map: k8s2-um-kjh8o2x5-apim-demo-wso2bps-ingress-1bxt8bgc
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"kubernetes.io/ingress.class":"nginx","nginx.ingress.kubernetes.io/affinity":"cookie","nginx.ingress.kubernetes.io/backend-protocol":"HTTPS","nginx.ingress.kubernetes.io/session-cookie-hash":"sha1","nginx.ingress.kubernetes.io/session-cookie-name":"route"},"name":"wso2bps-ingress","namespace":"apim-demo"},"spec":{"rules":[{"host":"explorer.bps.wso2.com","http":{"paths":[{"backend":{"service":{"name":"wso2bps-service","port":{"number":9445}}},"path":"/","pathType":"Prefix"}]}}],"tls":[{"hosts":["explorer.bps.wso2.com"]}]}}
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/affinity: cookie
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/session-cookie-hash: sha1
+    nginx.ingress.kubernetes.io/session-cookie-name: route
+  creationTimestamp: "2021-06-01T07:39:46Z"
+  generation: 5
+  name: wso2bps-ingress
+  namespace: apim-demo
+  resourceVersion: "65798336"
+  uid: f46ef8f6-8b23-42e2-8d93-5fad546f693e
+spec:
+  rules:
+  - host: explorer.bps.wso2.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: wso2bps-service
+            port:
+              number: 9445
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - explorer.bps.wso2.com
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.123.88.118

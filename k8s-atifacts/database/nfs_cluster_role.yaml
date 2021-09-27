@@ -1,0 +1,82 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    meta.helm.sh/release-name: apim4
+    meta.helm.sh/release-namespace: apim-demo
+  creationTimestamp: "2021-05-31T21:54:20Z"
+  labels:
+    app: nfs-server-provisioner
+    app.kubernetes.io/managed-by: Helm
+    chart: nfs-server-provisioner-1.1.0
+    heritage: Helm
+    release: apim4
+  name: apim4-nfs-server-provisioner
+  resourceVersion: "318282"
+  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterroles/apim4-nfs-server-provisioner
+  uid: a6b88c50-7ec1-47c1-94c2-c7f97e224591
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumes
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumeclaims
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - list
+  - watch
+  - create
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - services
+  - endpoints
+  verbs:
+  - get
+- apiGroups:
+  - extensions
+  resourceNames:
+  - nfs-provisioner
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - use
+- apiGroups:
+  - ""
+  resources:
+  - endpoints
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+  - patch

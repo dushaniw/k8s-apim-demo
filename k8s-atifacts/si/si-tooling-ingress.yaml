@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/backends: '{"k8s-be-31573--e7c82c31ceb2d57e":"HEALTHY","k8s1-e7c82c31-apim-demo-si-tooling-service-9390-373f78d5":"UNHEALTHY"}'
+    ingress.kubernetes.io/forwarding-rule: k8s2-fr-kjh8o2x5-apim-demo-si-tooling-ingress-1efpafrx
+    ingress.kubernetes.io/target-proxy: k8s2-tp-kjh8o2x5-apim-demo-si-tooling-ingress-1efpafrx
+    ingress.kubernetes.io/url-map: k8s2-um-kjh8o2x5-apim-demo-si-tooling-ingress-1efpafrx
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"kubernetes.io/ingress.class":"nginx"},"name":"si-tooling-ingress","namespace":"apim-demo"},"spec":{"rules":[{"host":"tooling.si.wso2.com","http":{"paths":[{"backend":{"service":{"name":"si-tooling-service","port":{"number":9390}}},"path":"/","pathType":"Prefix"}]}}]}}
+    kubernetes.io/ingress.class: nginx
+  creationTimestamp: "2021-06-02T06:57:16Z"
+  generation: 1
+  name: si-tooling-ingress
+  namespace: apim-demo
+  resourceVersion: "65798327"
+  uid: cef38632-5300-4493-aac4-8dc060e2a758
+spec:
+  rules:
+  - host: tooling.si.wso2.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: si-tooling-service
+            port:
+              number: 9390
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.123.88.118

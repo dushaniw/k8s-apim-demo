@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+    meta.helm.sh/release-name: apim4
+    meta.helm.sh/release-namespace: apim-demo
+  creationTimestamp: "2021-05-31T21:54:21Z"
+  labels:
+    app: nfs-server-provisioner
+    app.kubernetes.io/managed-by: Helm
+    chart: nfs-server-provisioner-1.1.0
+    heritage: Helm
+    release: apim4
+  name: apim4-nfs-server-provisioner
+  namespace: apim-demo
+  resourceVersion: "318298"
+  uid: d9c860a8-540f-400d-988f-2edeb8f5972d
+spec:
+  clusterIP: 10.8.4.220
+  clusterIPs:
+  - 10.8.4.220
+  ports:
+  - name: nfs
+    port: 2049
+    protocol: TCP
+    targetPort: nfs
+  - name: nfs-udp
+    port: 2049
+    protocol: UDP
+    targetPort: nfs-udp
+  - name: nlockmgr
+    port: 32803
+    protocol: TCP
+    targetPort: nlockmgr
+  - name: nlockmgr-udp
+    port: 32803
+    protocol: UDP
+    targetPort: nlockmgr-udp
+  - name: mountd
+    port: 20048
+    protocol: TCP
+    targetPort: mountd
+  - name: mountd-udp
+    port: 20048
+    protocol: UDP
+    targetPort: mountd-udp
+  - name: rquotad
+    port: 875
+    protocol: TCP
+    targetPort: rquotad
+  - name: rquotad-udp
+    port: 875
+    protocol: UDP
+    targetPort: rquotad-udp
+  - name: rpcbind
+    port: 111
+    protocol: TCP
+    targetPort: rpcbind
+  - name: rpcbind-udp
+    port: 111
+    protocol: UDP
+    targetPort: rpcbind-udp
+  - name: statd
+    port: 662
+    protocol: TCP
+    targetPort: statd
+  - name: statd-udp
+    port: 662
+    protocol: UDP
+    targetPort: statd-udp
+  selector:
+    app: nfs-server-provisioner
+    release: apim4
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

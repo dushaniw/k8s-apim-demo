@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"kubernetes.io/ingress.class":"nginx","nginx.ingress.kubernetes.io/backend-protocol":"HTTPS","nginx.ingress.kubernetes.io/ssl-redirect":"false"},"name":"choreo-connect-ingress","namespace":"apim-demo"},"spec":{"rules":[{"host":"mgw.wso2.com","http":{"paths":[{"backend":{"service":{"name":"router","port":{"number":9095}}},"path":"/","pathType":"Prefix"}]}}],"tls":[{"hosts":["mgw.wso2.com"],"secretName":"tls-secret"}]}}
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  creationTimestamp: "2021-06-02T11:45:55Z"
+  generation: 1
+  name: choreo-connect-ingress
+  namespace: apim-demo
+  resourceVersion: "65798335"
+  uid: 6c0c8cdd-1530-418e-9a59-c80c5a86bbfb
+spec:
+  rules:
+  - host: mgw.wso2.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: router
+            port:
+              number: 9095
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - mgw.wso2.com
+    secretName: tls-secret
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.123.88.118

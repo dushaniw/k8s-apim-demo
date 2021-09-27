@@ -1,0 +1,61 @@
+apiVersion: v1
+data:
+  deployment.toml: "[server]\nhostname = \"am.wso2.com\"\n#offset=0\nbase_path = \"${carbon.protocol}://${carbon.host}:${carbon.management.port}\"\n#discard_empty_caches
+    = false\nserver_role = \"default\"\n\n[tenant_mgt]\nenable_email_domain= true\n\n[super_admin]\nusername
+    = \"admin@gogo.com\"\npassword = \"admin\"\ncreate_admin_account = true\n\n[user_store]\ntype
+    = \"database_unique_id\"\n\n[database.apim_db]\ntype = \"mysql\"\nurl = \"jdbc:mysql://wso2am-mysql-db-service:3306/WSO2AM_DB?
+    \ useSSL=false&amp;autoReconnect=true&amp;requireSSL=false&amp;verifyServerCertificate=false\"\nusername
+    = \"wso2carbon\"\npassword = \"wso2carbon\"\ndriver = \"com.mysql.cj.jdbc.Driver\"\npool_options.maxActive=150\n\n[database.shared_db]\ntype
+    = \"mysql\"\nurl = \"jdbc:mysql://wso2am-mysql-db-service:3306/WSO2AM_SHARED_DB?
+    \   useSSL=false&amp;autoReconnect=true&amp;requireSSL=false&amp;verifyServerCertificate=false\"\nusername
+    = \"wso2carbon\"\npassword = \"wso2carbon\"\ndriver = \"com.mysql.cj.jdbc.Driver\"\npool_options.maxActive=150\n\n[keystore.tls]\nfile_name
+    =  \"wso2carbon.jks\"\ntype =  \"JKS\"\npassword =  \"wso2carbon\"\nalias =  \"wso2carbon\"\nkey_password
+    =  \"wso2carbon\"\n\n[security_audit]\napi_token=\"6dcffa4c-7004-4f3c-90be-dda3b03acbb2\"\ncollection_id=\"5e1b11df-fe32-41a2-a09d-58470f18622d\"\nglobal=true\n\n[[apim.gateway.environment]]\nname
+    = \"Default\"\ntype = \"hybrid\"\ndisplay_in_api_console = true\ndescription =
+    \"This is a hybrid gateway that handles both production and sandbox token traffic.\"\nshow_as_token_endpoint_url
+    = true\nservice_url = \"https://localhost:${mgt.transport.https.port}/services/\"\nusername=
+    \"${admin.username}\"\npassword= \"${admin.password}\"\nws_endpoint = \"ws://websub.am.wso2.com\"\nwss_endpoint
+    = \"wss://localhost:8099\"\nhttp_endpoint = \"http://gateway.am.wso2.com\"\nhttps_endpoint
+    = \"https://gateway.am.wso2.com\"\nwebsub_event_receiver_http_endpoint = \"http://websub.am.wso2.com\"\nwebsub_event_receiver_https_endpoint
+    = \"https://websub.am.wso2.com\"\n\n[[apim.gateway.environment]]\nname = \"Micro-Gateway\"\ntype
+    = \"hybrid\"\ndisplay_in_api_console = true\ndescription = \"Choreo Connect micro-gateway.\"\nshow_as_token_endpoint_url
+    = true\nservice_url = \"https://localhost:${mgt.transport.https.port}/services/\"\nusername=
+    \"${admin.username}\"\npassword= \"${admin.password}\"\nws_endpoint = \"http://mgw.wso2.com\"\nwss_endpoint
+    = \"http://mgw.wso2.com\"\nhttp_endpoint = \"http://mgw.wso2.com\"\nhttps_endpoint
+    = \"https://mgw.wso2.com\"\nwebsub_event_receiver_http_endpoint = \"http://localhost:9021\"\nwebsub_event_receiver_https_endpoint
+    = \"https://localhost:8021\"\n\n[apim.sync_runtime_artifacts.gateway]\ngateway_labels
+    =[\"Default\",\"WS-Gateway\"]\n\n[apim.analytics]\nenable = true\nconfig_endpoint
+    = \"https://analytics-event-auth.choreo.dev/auth/v1\"\nauth_token = \"d6e2905d-a6d9-4bd4-8926-a29ae394298d\"\n\n[apim.devportal]\nurl
+    = \"https://am.wso2.com/devportal\"\n\n[apim.cors]\nallow_origins = \"*\"\nallow_methods
+    = [\"GET\",\"PUT\",\"POST\",\"DELETE\",\"PATCH\",\"OPTIONS\"]\nallow_headers =
+    [\"authorization\",\"Access-Control-Allow-Origin\",\"Content-Type\",\"SOAPAction\",\"apikey\",\"Internal-Key\"]\nallow_credentials
+    = false\n\n[[event_handler]]\nname=\"userPostSelfRegistration\"\nsubscriptions=[\"POST_ADD_USER\"]\n\n[service_provider]\nsp_name_regex
+    = \"^[\\\\sa-zA-Z0-9._-]*$\"\n\n[[event_listener]]\nid = \"token_revocation\"\ntype
+    = \"org.wso2.carbon.identity.core.handler.AbstractIdentityHandler\"\nname = \"org.wso2.is.notification.ApimOauthEventInterceptor\"\norder
+    = 1\n[event_listener.properties]\nnotification_endpoint = \"https://localhost:${mgt.transport.https.port}/internal/data/v1/notify\"\nusername
+    = \"${admin.username}\"\npassword = \"${admin.password}\"\n'header.X-WSO2-KEY-MANAGER'
+    = \"default\"\n\n[transport.https.properties]\nproxyPort = 443\n\n[transport.passthru_https.sender.parameters]\nHostnameVerifier
+    = \"AllowAll\"\n\n[database.local]\nurl = \"jdbc:h2:./repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE\"\n\n[apim.monetization]\nmonetization_impl
+    = \"org.wso2.apim.monetization.impl.StripeMonetizationImpl\"\nanalytics_query_api_endpoint=
+    \"https://analytics-api.choreo.dev/query-api\"\nanalytics_access_token = \"d6e2905d-a6d9-4bd4-8926-a29ae394298d\"\n\n[[apim.monetization.additional_attributes]]\nname
+    = \"ConnectedAccountKey\"\ndisplay_name = \"ConnectedAccountKey\"\nrequired =
+    \"true\"\ndescription = \"connected account of the publisher\"\n\n[apim.throttling]\nusername
+    = \"admin@gogo.com@carbon.super\"\n\n[apim.throttling.jms]\nusername = \"admin!gogo.com!carbon.super\"\n\n[apim.throttling.policy_deploy]\nusername
+    = \"$ref{super_admin.username}@carbon.super\"\n\n[[apim.throttling.url_group]]\ntraffic_manager_urls
+    = [\"tcp://localhost:9611\"]\ntraffic_manager_auth_urls = [\"ssl://localhost:9711\"]\ntype
+    = \"loadbalance\"\n\n[apim.workflow]\nenable = true\nservice_url = \"https://wso2bps-service:9445/bpmn\"\nusername
+    = \"admin\"\npassword = \"admin\"\ncallback_endpoint = \"http://wso2am-pattern-1-am-service:9763/api/am/admin/v2/workflows/update-workflow-status\"\ntoken_endpoint
+    = \"http://wso2am-pattern-1-am-service:9763/oauth2/token\"\nclient_registration_endpoint
+    = \"http://wso2am-pattern-1-am-service:9763/client-registration/v0.17/register\"\nclient_registration_username
+    = \"$ref{super_admin.username}\"\nclient_registration_password = \"$ref{super_admin.password}\"\n\n[apim.opa_security]\noperation_mode
+    = \"sync\"\nserver_endpoint = \"http://opa-runtime-service:8181/v1/data\"   "
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"deployment.toml":"[server]\nhostname = \"am.wso2.com\"\n#offset=0\nbase_path = \"${carbon.protocol}://${carbon.host}:${carbon.management.port}\"\n#discard_empty_caches = false\nserver_role = \"default\"\n\n[tenant_mgt]\nenable_email_domain= true\n\n[super_admin]\nusername = \"admin@gogo.com\"\npassword = \"admin\"\ncreate_admin_account = true\n\n[user_store]\ntype = \"database_unique_id\"\n\n[database.apim_db]\ntype = \"mysql\"\nurl = \"jdbc:mysql://wso2am-mysql-db-service:3306/WSO2AM_DB?  useSSL=false\u0026amp;autoReconnect=true\u0026amp;requireSSL=false\u0026amp;verifyServerCertificate=false\"\nusername = \"wso2carbon\"\npassword = \"wso2carbon\"\ndriver = \"com.mysql.cj.jdbc.Driver\"\npool_options.maxActive=150\n\n[database.shared_db]\ntype = \"mysql\"\nurl = \"jdbc:mysql://wso2am-mysql-db-service:3306/WSO2AM_SHARED_DB?    useSSL=false\u0026amp;autoReconnect=true\u0026amp;requireSSL=false\u0026amp;verifyServerCertificate=false\"\nusername = \"wso2carbon\"\npassword = \"wso2carbon\"\ndriver = \"com.mysql.cj.jdbc.Driver\"\npool_options.maxActive=150\n\n[keystore.tls]\nfile_name =  \"wso2carbon.jks\"\ntype =  \"JKS\"\npassword =  \"wso2carbon\"\nalias =  \"wso2carbon\"\nkey_password =  \"wso2carbon\"\n\n[security_audit]\napi_token=\"6dcffa4c-7004-4f3c-90be-dda3b03acbb2\"\ncollection_id=\"5e1b11df-fe32-41a2-a09d-58470f18622d\"\nglobal=true\n\n[[apim.gateway.environment]]\nname = \"Default\"\ntype = \"hybrid\"\ndisplay_in_api_console = true\ndescription = \"This is a hybrid gateway that handles both production and sandbox token traffic.\"\nshow_as_token_endpoint_url = true\nservice_url = \"https://localhost:${mgt.transport.https.port}/services/\"\nusername= \"${admin.username}\"\npassword= \"${admin.password}\"\nws_endpoint = \"ws://websub.am.wso2.com\"\nwss_endpoint = \"wss://localhost:8099\"\nhttp_endpoint = \"http://gateway.am.wso2.com\"\nhttps_endpoint = \"https://gateway.am.wso2.com\"\nwebsub_event_receiver_http_endpoint = \"http://websub.am.wso2.com\"\nwebsub_event_receiver_https_endpoint = \"https://websub.am.wso2.com\"\n\n[[apim.gateway.environment]]\nname = \"Micro-Gateway\"\ntype = \"hybrid\"\ndisplay_in_api_console = true\ndescription = \"Choreo Connect micro-gateway.\"\nshow_as_token_endpoint_url = true\nservice_url = \"https://localhost:${mgt.transport.https.port}/services/\"\nusername= \"${admin.username}\"\npassword= \"${admin.password}\"\nws_endpoint = \"http://mgw.wso2.com\"\nwss_endpoint = \"http://mgw.wso2.com\"\nhttp_endpoint = \"http://mgw.wso2.com\"\nhttps_endpoint = \"https://mgw.wso2.com\"\nwebsub_event_receiver_http_endpoint = \"http://localhost:9021\"\nwebsub_event_receiver_https_endpoint = \"https://localhost:8021\"\n\n[apim.sync_runtime_artifacts.gateway]\ngateway_labels =[\"Default\",\"WS-Gateway\"]\n\n[apim.analytics]\nenable = true\nconfig_endpoint = \"https://analytics-event-auth.choreo.dev/auth/v1\"\nauth_token = \"d6e2905d-a6d9-4bd4-8926-a29ae394298d\"\n\n[apim.devportal]\nurl = \"https://am.wso2.com/devportal\"\n\n[apim.cors]\nallow_origins = \"*\"\nallow_methods = [\"GET\",\"PUT\",\"POST\",\"DELETE\",\"PATCH\",\"OPTIONS\"]\nallow_headers = [\"authorization\",\"Access-Control-Allow-Origin\",\"Content-Type\",\"SOAPAction\",\"apikey\",\"Internal-Key\"]\nallow_credentials = false\n\n[[event_handler]]\nname=\"userPostSelfRegistration\"\nsubscriptions=[\"POST_ADD_USER\"]\n\n[service_provider]\nsp_name_regex = \"^[\\\\sa-zA-Z0-9._-]*$\"\n\n[[event_listener]]\nid = \"token_revocation\"\ntype = \"org.wso2.carbon.identity.core.handler.AbstractIdentityHandler\"\nname = \"org.wso2.is.notification.ApimOauthEventInterceptor\"\norder = 1\n[event_listener.properties]\nnotification_endpoint = \"https://localhost:${mgt.transport.https.port}/internal/data/v1/notify\"\nusername = \"${admin.username}\"\npassword = \"${admin.password}\"\n'header.X-WSO2-KEY-MANAGER' = \"default\"\n\n[transport.https.properties]\nproxyPort = 443\n\n[transport.passthru_https.sender.parameters]\nHostnameVerifier = \"AllowAll\"\n\n[database.local]\nurl = \"jdbc:h2:./repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE\"\n\n[apim.monetization]\nmonetization_impl = \"org.wso2.apim.monetization.impl.StripeMonetizationImpl\"\nanalytics_query_api_endpoint= \"https://analytics-api.choreo.dev/query-api\"\nanalytics_access_token = \"d6e2905d-a6d9-4bd4-8926-a29ae394298d\"\n\n[[apim.monetization.additional_attributes]]\nname = \"ConnectedAccountKey\"\ndisplay_name = \"ConnectedAccountKey\"\nrequired = \"true\"\ndescription = \"connected account of the publisher\"\n\n[apim.throttling]\nusername = \"admin@gogo.com@carbon.super\"\n\n[apim.throttling.jms]\nusername = \"admin!gogo.com!carbon.super\"\n\n[apim.throttling.policy_deploy]\nusername = \"$ref{super_admin.username}@carbon.super\"\n\n[[apim.throttling.url_group]]\ntraffic_manager_urls = [\"tcp://localhost:9611\"]\ntraffic_manager_auth_urls = [\"ssl://localhost:9711\"]\ntype = \"loadbalance\"\n\n[apim.workflow]\nenable = true\nservice_url = \"https://wso2bps-service:9445/bpmn\"\nusername = \"admin\"\npassword = \"admin\"\ncallback_endpoint = \"http://wso2am-pattern-1-am-service:9763/api/am/admin/v2/workflows/update-workflow-status\"\ntoken_endpoint = \"http://wso2am-pattern-1-am-service:9763/oauth2/token\"\nclient_registration_endpoint = \"http://wso2am-pattern-1-am-service:9763/client-registration/v0.17/register\"\nclient_registration_username = \"$ref{super_admin.username}\"\nclient_registration_password = \"$ref{super_admin.password}\"\n\n[apim.opa_security]\noperation_mode = \"sync\"\nserver_endpoint = \"http://opa-runtime-service:8181/v1/data\"   "},"kind":"ConfigMap","metadata":{"annotations":{},"name":"wso2am-pattern-1-am-1-conf","namespace":"apim-demo"}}
+  creationTimestamp: "2021-06-04T04:35:15Z"
+  name: wso2am-pattern-1-am-1-conf
+  namespace: apim-demo
+  resourceVersion: "2260467"
+  uid: 04534aad-f25c-4443-8685-a011169bd8c8

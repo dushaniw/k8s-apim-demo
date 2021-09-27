@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+    meta.helm.sh/release-name: apim4
+    meta.helm.sh/release-namespace: apim-demo
+  creationTimestamp: "2021-05-31T21:54:21Z"
+  labels:
+    app.kubernetes.io/instance: apim4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: am-pattern-1
+    app.kubernetes.io/version: 4.0.0
+    deployment: wso2am-pattern-1-mi
+    helm.sh/chart: am-pattern-1-4.0.0-1
+    node: wso2am-pattern-1-mi-1
+  name: wso2am-pattern-1-mi-1-service
+  namespace: apim-demo
+  resourceVersion: "318296"
+  uid: 1542bc1c-ab8c-43f5-b9fa-d0532b9e31f8
+spec:
+  clusterIP: 10.8.3.227
+  clusterIPs:
+  - 10.8.3.227
+  ports:
+  - name: pass-through-http
+    port: 8290
+    protocol: TCP
+    targetPort: 8290
+  - name: pass-through-https
+    port: 8253
+    protocol: TCP
+    targetPort: 8253
+  - name: metrics
+    port: 9201
+    protocol: TCP
+    targetPort: 9201
+  - name: management
+    port: 9164
+    protocol: TCP
+    targetPort: 9164
+  selector:
+    deployment: wso2am-pattern-1-mi
+    node: wso2am-pattern-1-mi-1
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

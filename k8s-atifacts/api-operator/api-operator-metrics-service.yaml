@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2021-06-03T05:40:03Z"
+  labels:
+    name: api-operator
+  name: api-operator-metrics
+  namespace: apim-demo
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Deployment
+    name: api-operator
+    uid: 80bbc091-35b6-4d79-b3d6-b4630f681434
+  resourceVersion: "37011550"
+  uid: bb9e6412-66f3-4437-8d08-9b4add2b2a7d
+spec:
+  clusterIP: 10.8.0.158
+  clusterIPs:
+  - 10.8.0.158
+  ports:
+  - port: 8383
+    protocol: TCP
+    targetPort: 8383
+  selector:
+    name: api-operator
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

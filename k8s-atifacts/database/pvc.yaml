@@ -1,0 +1,22 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      volume.beta.kubernetes.io/storage-provisioner: cluster.local/apim4-nfs-server-provisioner
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: wso2am-mysql-db-service
+      release: apim4
+    name: wso2am-mysql-db-service
+    namespace: apim-demo
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 8Gi
+    storageClassName: nfs
+kind: List

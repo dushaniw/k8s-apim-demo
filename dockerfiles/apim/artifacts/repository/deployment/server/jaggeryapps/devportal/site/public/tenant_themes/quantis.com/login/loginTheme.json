@@ -1,0 +1,26 @@
+{
+  "title" : "WSO2 API Manager",
+  "header" : {
+    "title" : "API Manager" 	
+  },
+  "footer" : {
+    "name" : "WSO2 API Manager"
+  },  
+  "favicon" : {
+    "src" : "favicon.ico"
+  },
+  "logo" : {
+    "src" : "custom-logo.png",
+    "alt" : "logo",
+    "height" : "60",
+    "width" : "60"
+  },
+  "cookie-policy" : {
+    "visible" : true,
+    "text" : "<custom cookie policy text>"
+  },
+  "privacy-policy" : {
+    "visible" : true,
+    "text" : "<custom privacy policy text>"
+  }
+}

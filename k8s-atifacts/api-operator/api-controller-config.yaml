@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  deployAPIToAPIManager: "true"
+  deployAPIToMicrogateway: "false"
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"deployAPIToAPIManager":"true","deployAPIToMicrogateway":"false"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"api-controller-config","namespace":"apim-demo"}}
+  creationTimestamp: "2021-06-03T04:46:31Z"
+  name: api-controller-config
+  namespace: apim-demo
+  resourceVersion: "1649136"
+  uid: 52a80979-0171-41a5-9c7e-7e3a029d0444

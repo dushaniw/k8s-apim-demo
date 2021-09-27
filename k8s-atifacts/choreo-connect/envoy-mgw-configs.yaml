@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  mgwAdapterHost: https://adapter.default:9843
+  mgwInsecureSkipVerify: "true"
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"mgwAdapterHost":"https://adapter.default:9843","mgwInsecureSkipVerify":"true"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"envoy-mgw-configs","namespace":"apim-demo"}}
+  creationTimestamp: "2021-06-03T04:46:34Z"
+  name: envoy-mgw-configs
+  namespace: apim-demo
+  resourceVersion: "1649151"
+  uid: 2f6b26ba-2135-43c0-bfed-93e28ae4301d

@@ -1,0 +1,25 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  annotations:
+    meta.helm.sh/release-name: apim4
+    meta.helm.sh/release-namespace: apim-demo
+  creationTimestamp: "2021-05-31T21:54:20Z"
+  labels:
+    app: nfs-server-provisioner
+    app.kubernetes.io/managed-by: Helm
+    chart: nfs-server-provisioner-1.1.0
+    heritage: Helm
+    release: apim4
+  name: apim4-nfs-server-provisioner
+  resourceVersion: "318285"
+  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/apim4-nfs-server-provisioner
+  uid: 7ac9e2ec-dc05-4571-96ed-572bff64ebfa
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: apim4-nfs-server-provisioner
+subjects:
+- kind: ServiceAccount
+  name: apim4-nfs-server-provisioner
+  namespace: apim-demo

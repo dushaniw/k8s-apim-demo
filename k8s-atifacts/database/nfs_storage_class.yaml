@@ -1,0 +1,23 @@
+allowVolumeExpansion: true
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    meta.helm.sh/release-name: apim4
+    meta.helm.sh/release-namespace: apim-demo
+  creationTimestamp: "2021-05-31T21:54:19Z"
+  labels:
+    app: nfs-server-provisioner
+    app.kubernetes.io/managed-by: Helm
+    chart: nfs-server-provisioner-1.1.0
+    heritage: Helm
+    release: apim4
+  name: nfs
+  resourceVersion: "318276"
+  selfLink: /apis/storage.k8s.io/v1/storageclasses/nfs
+  uid: f31ba926-cf3b-4cba-aba5-a92a9bc1a876
+mountOptions:
+- vers=3
+provisioner: cluster.local/apim4-nfs-server-provisioner
+reclaimPolicy: Delete
+volumeBindingMode: Immediate

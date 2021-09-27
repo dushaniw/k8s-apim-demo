@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/backends: '{"k8s-be-31573--e7c82c31ceb2d57e":"HEALTHY","k8s1-e7c82c31-apim-demo-si-runtime-service-8025-1eab5ded":"UNHEALTHY"}'
+    ingress.kubernetes.io/forwarding-rule: k8s2-fr-kjh8o2x5-apim-demo-si-runtime-ingress-k9zidnyu
+    ingress.kubernetes.io/target-proxy: k8s2-tp-kjh8o2x5-apim-demo-si-runtime-ingress-k9zidnyu
+    ingress.kubernetes.io/url-map: k8s2-um-kjh8o2x5-apim-demo-si-runtime-ingress-k9zidnyu
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"kubernetes.io/ingress.class":"nginx"},"name":"si-runtime-ingress","namespace":"apim-demo"},"spec":{"rules":[{"host":"websocket.si.wso2.com","http":{"paths":[{"backend":{"service":{"name":"si-runtime-service","port":{"number":8025}}},"path":"/","pathType":"Prefix"}]}}]}}
+    kubernetes.io/ingress.class: nginx
+  creationTimestamp: "2021-06-02T05:38:31Z"
+  generation: 3
+  name: si-runtime-ingress
+  namespace: apim-demo
+  resourceVersion: "65798339"
+  uid: af7c612b-79b3-4112-9ffb-a8276ddb84d7
+spec:
+  rules:
+  - host: websocket.si.wso2.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: si-runtime-service
+            port:
+              number: 8025
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.123.88.118

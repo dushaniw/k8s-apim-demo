@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  name: opa-runtime-ingress
+  namespace: apim-demo
+spec:
+  rules:
+  - host: opa.wso2.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: opa-runtime-service
+            port:
+              number: 8181
+        path: /
+        pathType: Prefix

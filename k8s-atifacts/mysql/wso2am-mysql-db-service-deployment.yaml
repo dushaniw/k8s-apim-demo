@@ -1,0 +1,130 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    meta.helm.sh/release-name: apim4
+    meta.helm.sh/release-namespace: apim-demo
+  creationTimestamp: "2021-05-31T21:54:21Z"
+  generation: 1
+  labels:
+    app: wso2am-mysql-db-service
+    app.kubernetes.io/managed-by: Helm
+    chart: mysql-1.6.9
+    heritage: Helm
+    release: apim4
+  name: wso2am-mysql-db-service
+  namespace: apim-demo
+  resourceVersion: "65797648"
+  uid: 8a2f2478-076d-4f75-b07b-68700cc8be92
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: wso2am-mysql-db-service
+      release: apim4
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: wso2am-mysql-db-service
+        release: apim4
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: mysql-root-password
+              name: wso2am-mysql-db-service
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: mysql-password
+              name: wso2am-mysql-db-service
+        - name: MYSQL_USER
+          value: wso2carbon
+        - name: MYSQL_DATABASE
+        image: mysql:5.7.34
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - mysqladmin ping -u root -p${MYSQL_ROOT_PASSWORD}
+          failureThreshold: 3
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: wso2am-mysql-db-service
+        ports:
+        - containerPort: 3306
+          name: mysql
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - mysqladmin ping -u root -p${MYSQL_ROOT_PASSWORD}
+          failureThreshold: 3
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: data
+        - mountPath: /etc/mysql/conf.d/mysql.cnf
+          name: configurations
+          subPath: mysql.cnf
+        - mountPath: /docker-entrypoint-initdb.d
+          name: migrations
+      dnsPolicy: ClusterFirst
+      initContainers:
+      - command:
+        - rm
+        - -fr
+        - /var/lib/mysql/lost+found
+        image: busybox:1.32
+        imagePullPolicy: IfNotPresent
+        name: remove-lost-found
+        resources:
+          requests:
+            cpu: 10m
+            memory: 10Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: data
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: default
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: wso2am-mysql-db-service-configuration
+        name: configurations
+      - configMap:
+          defaultMode: 420
+          name: wso2am-mysql-db-service-initialization
+        name: migrations
+      - name: data
+        persistentVolumeClaim:
+          claimName: wso2am-mysql-db-service

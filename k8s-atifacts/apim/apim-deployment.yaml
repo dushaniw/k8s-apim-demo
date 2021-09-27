@@ -2,9 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    deployment.kubernetes.io/revision: "2"
+    deployment.kubernetes.io/revision: "5"
+    meta.helm.sh/release-name: apim4
+    meta.helm.sh/release-namespace: apim-demo
+  creationTimestamp: "2021-05-31T21:54:21Z"
+  generation: 7
+  labels:
+    app.kubernetes.io/managed-by: Helm
   name: wso2am-pattern-1-am-1-deployment
   namespace: apim-demo
+  resourceVersion: "65773800"
+  uid: 545e161b-0c7e-4fec-8df0-fa1d343160f6
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -17,6 +25,9 @@ spec:
     type: Recreate
   template:
     metadata:
+      annotations:
+        checksum.am.conf: 3d100fa80d471208591a7ec36032f8ffd28610b6adf11ac4cd94bed7f84acb8c
+      creationTimestamp: null
       labels:
         deployment: wso2am-pattern-1-am
         node: wso2am-pattern-1-am-1
@@ -66,6 +77,8 @@ spec:
           protocol: TCP
         - containerPort: 5672
           protocol: TCP
+        - containerPort: 9099
+          protocol: TCP
         readinessProbe:
           exec:
             command:
@@ -91,6 +104,8 @@ spec:
         volumeMounts:
         - mountPath: /home/wso2carbon/wso2-config-volume/repository/conf
           name: wso2am-conf
+        - mountPath: /home/wso2carbon/wso2-artifact-volume/repository/resources/security
+          name: wso2am-truststore-cm
         - mountPath: /home/wso2carbon/wso2-artifact-volume/repository/components/dropins
           name: mysql-connector-jar
       dnsPolicy: ClusterFirst
@@ -132,7 +147,11 @@ spec:
       volumes:
       - configMap:
           defaultMode: 420
+          name: wso2am-pattern-1-am-1-trustore-conf
+        name: wso2am-truststore-cm
+      - configMap:
+          defaultMode: 420
           name: wso2am-pattern-1-am-1-conf
         name: wso2am-conf
       - emptyDir: {}
-        name: mysql-connector-jar
+        name: mysql-connector-jar 

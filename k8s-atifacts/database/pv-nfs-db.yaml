@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    EXPORT_block: "\nEXPORT\n{\n\tExport_Id = 1;\n\tPath = /export/pvc-98b343fd-7707-4211-a3f3-9b5307e0c532;\n\tPseudo
+      = /export/pvc-98b343fd-7707-4211-a3f3-9b5307e0c532;\n\tAccess_Type = RW;\n\tSquash
+      = no_root_squash;\n\tSecType = sys;\n\tFilesystem_id = 1.1;\n\tFSAL {\n\t\tName
+      = VFS;\n\t}\n}\n"
+    Export_Id: "1"
+    Project_Id: "0"
+    Project_block: ""
+    Provisioner_Id: a08f64ef-27b3-4530-ace1-9c6dfad58107
+    kubernetes.io/createdby: nfs-dynamic-provisioner
+    pv.kubernetes.io/provisioned-by: cluster.local/apim4-nfs-server-provisioner
+  finalizers:
+  - kubernetes.io/pv-protection
+  name: pvc-98b343fd-7707-4211-a3f3-9b5307e0c532
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 8Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: wso2am-mysql-db-service
+    namespace: apim-demo
+  mountOptions:
+  - vers=3
+  nfs:
+    path: /export/pvc-98b343fd-7707-4211-a3f3-9b5307e0c532
+    server: 10.8.4.220
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: nfs
+  volumeMode: Filesystem

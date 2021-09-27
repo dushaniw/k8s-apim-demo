@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2021-09-24T03:49:08Z"
+  name: api-operator-lock
+  namespace: apim-demo
+  ownerReferences:
+  - apiVersion: v1
+    kind: Pod
+    name: api-operator-f7d79c759-xn474
+    uid: d2904c94-5066-46a2-9ac1-74c4bbd22dbb
+  resourceVersion: "65798060"
+  uid: eb8c66bb-566c-468d-a3a4-7e8c29c87e2c

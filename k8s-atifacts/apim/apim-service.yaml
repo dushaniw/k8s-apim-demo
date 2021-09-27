@@ -3,10 +3,19 @@ kind: Service
 metadata:
   annotations:
     cloud.google.com/neg: '{"ingress":true}'
+    meta.helm.sh/release-name: apim4
+    meta.helm.sh/release-namespace: apim-demo
+  creationTimestamp: "2021-05-31T21:54:21Z"
+  labels:
+    app.kubernetes.io/managed-by: Helm
   name: wso2am-pattern-1-am-service
   namespace: apim-demo
+  resourceVersion: "1979261"
+  uid: 0dd1351c-5a52-4b3f-b5ae-be3590a104b2
 spec:
   clusterIP: 10.8.10.52
+  clusterIPs:
+  - 10.8.10.52
   ports:
   - name: pass-through-http
     port: 8280
@@ -32,7 +41,29 @@ spec:
     port: 8021
     protocol: TCP
     targetPort: 8021
+  - name: broker
+    port: 5672
+    protocol: TCP
+    targetPort: 5672
+  - name: tm-ssl
+    port: 9711
+    protocol: TCP
+    targetPort: 9711
+  - name: tm-tcp
+    port: 9611
+    protocol: TCP
+    targetPort: 9611
+  - name: ws
+    port: 9099
+    protocol: TCP
+    targetPort: 9099
+  - name: wss
+    port: 8099
+    protocol: TCP
+    targetPort: 8099
   selector:
     deployment: wso2am-pattern-1-am
   sessionAffinity: None
   type: ClusterIP
+status:
+  loadBalancer: {}

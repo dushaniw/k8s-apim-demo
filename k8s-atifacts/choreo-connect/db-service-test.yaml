@@ -1,0 +1,22 @@
+apiVersion: v1
+data:
+  run.sh: |-
+    @test "Testing MySQL Connection" {
+      mysql --host=wso2am-mysql-db-service --port=3306 -u root -proot
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: apim4
+    meta.helm.sh/release-namespace: apim-demo
+  creationTimestamp: "2021-05-31T21:54:18Z"
+  labels:
+    app: wso2am-mysql-db-service
+    app.kubernetes.io/managed-by: Helm
+    chart: mysql-1.6.9
+    heritage: Helm
+    release: apim4
+  name: wso2am-mysql-db-service-test
+  namespace: apim-demo
+  resourceVersion: "318266"
+  uid: 67a15cc9-9467-492a-a613-053b4ae2ba88

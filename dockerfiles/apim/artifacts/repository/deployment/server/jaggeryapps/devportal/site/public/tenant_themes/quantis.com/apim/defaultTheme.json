@@ -1,0 +1,11 @@
+{
+	"custom": {
+		"appBar": {
+			"logo": "/site/public/tenant_themes/<tenant-domain>/apim/images/custom-logo.svg",
+			"logoHeight": 46,
+			"logoWidth": 144,
+			"background": "#b54646",
+          	"activeBackground": "#501f1f"
+		}
+	}
+}

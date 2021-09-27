@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"choreo-connect-adapter"},"name":"adapter","namespace":"apim-demo"},"spec":{"ports":[{"name":"http-adaptermanagementserver","port":18000,"protocol":"TCP","targetPort":18000},{"name":"https-adapter","port":9843,"protocol":"TCP","targetPort":9843}],"selector":{"app":"choreo-connect-adapter"},"type":"ClusterIP"}}
+  creationTimestamp: "2021-06-02T11:45:51Z"
+  labels:
+    app: choreo-connect-adapter
+  name: adapter
+  namespace: apim-demo
+  resourceVersion: "1216742"
+  uid: 4eed3c00-7cd8-4c8b-9619-d367b434990a
+spec:
+  clusterIP: 10.8.0.119
+  clusterIPs:
+  - 10.8.0.119
+  ports:
+  - name: http-adaptermanagementserver
+    port: 18000
+    protocol: TCP
+    targetPort: 18000
+  - name: https-adapter
+    port: 9843
+    protocol: TCP
+    targetPort: 9843
+  selector:
+    app: choreo-connect-adapter
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

@@ -1,0 +1,35 @@
+apiVersion: v1
+data:
+  deployment.toml: |
+    [server]
+    hostname = "localhost"
+    hot_deployment = false
+    # offset  = 10
+
+    [user_store]
+    type = "read_only_ldap"
+
+    [keystore.primary]
+    file_name = "repository/resources/security/wso2carbon.jks"
+    password = "wso2carbon"
+    alias = "wso2carbon"
+    key_password = "wso2carbon"
+
+    [truststore]
+    file_name = "repository/resources/security/client-truststore.jks"
+    password = "wso2carbon"
+    alias = "symmetric.key.value"
+    algorithm = "AES"
+
+    [[service_catalog]]
+    apim_host = "https://wso2am-pattern-1-am-service:9443"
+    enable = true
+    username = "admin@gogo.com"
+    password = "admin"
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2021-06-01T03:45:00Z"
+  name: wso2am-pattern-1-mi-1-conf
+  namespace: apim-demo
+  resourceVersion: "491205"
+  uid: 77402d02-bd94-4c76-8da9-663d76e0ebeb
